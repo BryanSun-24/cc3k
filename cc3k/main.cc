@@ -3,6 +3,8 @@
 #include <string>
 
 int main(){
+    // 5个floor， 每一个floor都有一个textdisplay
+
     std::ifstream in{"defaultMap.txt"};
     std::string map;
     while(getline(in, map)){

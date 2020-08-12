@@ -5,6 +5,7 @@ class State {
     int x;
     int y;
     public:
+    State(int x, int y);
     int getRow();
     int getCol();
 };

@@ -9,6 +9,8 @@ class Character: public State {
     int defense;
     int gold;
     bool isAlive;
+    public:
+    Character(int x, int y, int health, int attack, int defense, int gold);
 };
 
 #endif
