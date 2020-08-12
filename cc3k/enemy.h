@@ -8,7 +8,7 @@ class Player;
 
 class Enemy: public Character {
     public:
-    void getGold();
+    Enemy(int x, int y, int health, int attack, int defense, int gold);
     void attack(std::shared_ptr<Player> player);
     void specialAbility();
 };

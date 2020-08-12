@@ -7,6 +7,10 @@ class Buff {
     int defense;
     int health;
     public:
+    Buff();
+    int getAttack();
+    int getDefense();
+    int getHealth();
     void attackPotion(int attack);
     void defensePotion(int defense);
     void healthPotion(int health);
