@@ -4,6 +4,9 @@
 class State {
     int x;
     int y;
+    public:
+    int getRow();
+    int getCol();
 };
 
 #endif
