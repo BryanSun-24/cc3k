@@ -4,7 +4,8 @@
 #include "treasure.h"
 
 class Small: public Treasure {
-    int getGold() override;
+    public:
+    Small(int x, int y, int num, std::shared_ptr<Player> player);
     void addGold() override;
 };
 

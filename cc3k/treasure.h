@@ -10,8 +10,9 @@ class Treasure: public Item{
     protected:
     std::shared_ptr<Player> player;
     public:
-    virtual int getGold();
-    virtual void addGold();
+    Treasure(int x, int y, int num, std::shared_ptr<Player> player);
+    int getGold();
+    virtual void addGold() = 0;
 };
 
 #endif
