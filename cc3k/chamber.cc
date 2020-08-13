@@ -8,34 +8,40 @@ Chamber::Chamber(int ID): ID{ID}{
             std::vector<int> location;
             location.emplace_back(row);
             location.emplace_back(col);
-            if(ID==1&&(3<=row<=6)&&(3<=col<=29)){
+            if(ID==1&&(3<=row)&&(row<=6)&&(3<=col)&&(col<=28)){
                 listofChamber.emplace_back(location);
-            }else if(ID==4&&(15<=row<=22)&&(4<=col<=24)){
+            }else if(ID==4&&(15<=row)&&(row<=21)&&(4<=col)&&(col<=24)){
                 listofChamber.emplace_back(location);
-            }else if(ID==3&&(10<=row<=12)&&(38<=col<=49)){
+            }else if(ID==3&&(10<=row)&&(row<=12)&&(38<=col)&&(col<=49)){
                 listofChamber.emplace_back(location);
-            }else if(ID==5&&(16<=row<=18)&&(65<=col<=75)){
+            }else if(ID==5&&(16<=row)&&(row<=18)&&(65<=col)&&(col<=75)){
                 listofChamber.emplace_back(location);
-            }else if(ID==5&&(19<=row<=21)&&(37<=col<=75)){
+            }else if(ID==5&&(19<=row)&&(row<=21)&&(37<=col)&&(col<=75)){
                 listofChamber.emplace_back(location);
-            }else if(ID==2&&(3<=row<=4)&&(39<=col<=61)){
+            }else if(ID==2&&(3<=row)&&(row<=4)&&(39<=col)&&(col<=61)){
                 listofChamber.emplace_back(location);
-            }else if(ID==2&&(row==5)&&(39<=col<=69)){
+            }else if(ID==2&&(row==5)&&(39<=col)&&(col<=69)){
                 listofChamber.emplace_back(location);
-            }else if(ID==2&&(row==6)&&(39<=col<=72)){
+            }else if(ID==2&&(row==6)&&(39<=col)&&(col<=72)){
                 listofChamber.emplace_back(location);
-            }else if(ID==2&&(3<=row<=4)&&(39<=col<=61)){
+            }else if(ID==2&&(3<=row)&&(row<=4)&&(39<=col)&&(col<=61)){
                 listofChamber.emplace_back(location);
-            }else if(ID==2&&(7<=row<=12)&&(61<=col<=75)){
+            }else if(ID==2&&(7<=row)&&(row<=12)&&(61<=col)&&(col<=75)){
                 listofChamber.emplace_back(location);
+            }else {
+                continue;
             }
         }
    }
 }
 
 std::vector<int> Chamber::generateChamberPos(){
+    //std::cout << "called generateChamber" << std::endl;
     int x;
-    x = rand() % this->listofChamber.size();
+    int size = this->listofChamber.size();
+    std::cout << "size: " << size << std::endl;
+    x = rand() % size;
+    //std::cout << "random x: "<< x << std::endl;
     return listofChamber[x];
 }
 

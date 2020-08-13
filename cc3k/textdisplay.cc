@@ -36,3 +36,19 @@ void Textdisplay::print(){
     std::cout << (*this); 
 }
 
+void Textdisplay::setPlayer(int row, int col){
+    this->theDisplay[row][col] = '@';
+}
+
+void Textdisplay::setEmpty(int row, int col){
+    this->theDisplay[row][col] = '.';
+}
+
+bool Textdisplay::validMove(int row, int col){
+    if(this->theDisplay[row][col] == '.' || this->theDisplay[row][col] == '+' || this->theDisplay[row][col] == '#' || this->theDisplay[row][col] == 'P'){
+        return true;
+    } else {
+        return false;
+    }
+}
+
