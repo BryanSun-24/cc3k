@@ -17,14 +17,16 @@ class Floor {
     int floorNum;
     std::vector<Enemy> enemies;
     std::vector<Item> items;
-    std::vector<Chamber> chambers;
+    std::vector<std::shared_ptr<Chamber> > chambers;
     public:
     Floor(int num);
     void init();
     void print();
-    void setChamber();
+    void setChambers();
     void setEnemies();
     void setPlayer(std::shared_ptr<Player> player);
+    void randomPlayer();
+    void movePlayer(std::string direction);
     void setTreasure();
     void setPotion();
     void setDisplay();
