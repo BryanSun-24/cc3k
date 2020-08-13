@@ -3,8 +3,7 @@
 
 #include "item.h"
 #include <memory>
-
-class Buff;
+#include "buff.h"
 
 class Potion: public Item{
     protected:

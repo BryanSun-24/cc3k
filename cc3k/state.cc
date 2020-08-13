@@ -12,3 +12,8 @@ int State::getCol(){
     return this->y;
 }
 
+void State::setPos(int x, int y){
+    this->x = x;
+    this->y = y;
+}
+

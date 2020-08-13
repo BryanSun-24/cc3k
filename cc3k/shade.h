@@ -5,6 +5,7 @@
 class Shade: public Player {
     public:
     Shade(int x, int y);
+    virtual void specialAbility() override;
 };
 
 #endif

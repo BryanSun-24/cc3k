@@ -3,8 +3,8 @@
 
 #include "character.h"
 #include <memory>
+#include "buff.h"
 
-class Buff;
 class Enemy;
 
 class Player: public Character {
