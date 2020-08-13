@@ -1,7 +1,18 @@
 #ifndef CHAMBER_H
 #define CHAMBER_H
 
+#include <vector>
+#include "floor.h"
+#include "textdisplay.h"
+
 class Chamber {
+    int ID;
+    std::vector<std::vector<int>> listofChamber;
+
+    Chamber(int ID);
+    std::vector<int> generateChamberPos();
+    bool isValid();
+    
 
 };
 
