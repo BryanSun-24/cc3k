@@ -8,6 +8,7 @@ class State {
     State(int x, int y);
     int getRow();
     int getCol();
+    void setPos(int x, int y);
 };
 
 #endif
