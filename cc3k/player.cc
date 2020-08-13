@@ -27,6 +27,3 @@ void Player::resetBuff(){
 void Player::attack(std::shared_ptr<Enemy> enemy){
 
 }
-void Player::specialAbility(){
-
-}

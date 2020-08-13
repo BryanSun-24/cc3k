@@ -17,7 +17,7 @@ class Player: public Character {
     int defenseBuff(); 
     void resetBuff();
     void attack(std::shared_ptr<Enemy> enemy);
-    void specialAbility();
+    virtual void specialAbility() = 0;
 };
 
 #endif
