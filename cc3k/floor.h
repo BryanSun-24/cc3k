@@ -4,23 +4,27 @@
 
 #include <memory>
 #include <vector>
-#include "character.h"
+#include "player.h"
+#include "enemy.h"
 #include "textdisplay.h"
 #include "item.h"
 #include "chamber.h"
 
 class Floor {
-    std::unique_ptr<Character> player;
+    std::shared_ptr<Player> player;
     std::unique_ptr<Floor> floor;
     std::unique_ptr<Textdisplay> textdisplay;
     int floorNum;
-    std::vector<Character> enemies;
+    std::vector<Enemy> enemies;
     std::vector<Item> items;
     std::vector<Chamber> chambers;
     public:
+    Floor(int num);
+    void init();
+    void print();
     void setChamber();
     void setEnemies();
-    void setPlayer();
+    void setPlayer(std::shared_ptr<Player> player);
     void setTreasure();
     void setPotion();
     void setDisplay();
