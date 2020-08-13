@@ -29,9 +29,8 @@ int main(){
     for(int i = 0; i < 5; ++i){
         floors[i]->init();
         floors[i]->setPlayer(player);
+        floors[i]->setChambers();
     }
-
-    
     return 0;
 }
 
