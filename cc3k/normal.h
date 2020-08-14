@@ -4,7 +4,8 @@
 #include "treasure.h"
 
 class Normal: public Treasure {
-    int getGold() override;
+    public:
+    Normal(int x, int y, std::shared_ptr<Player> player);
     void addGold() override;
 };
 

@@ -8,6 +8,10 @@ void Character::addHealth(int health){
     this->health += health;
 }
 
+void Character::addGold(int gold){
+    this->gold += gold;
+}
+
 int Character::getGold(){
     return this->gold;
 }

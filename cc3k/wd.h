@@ -4,7 +4,8 @@
 #include "potion.h"
 
 class WD: public Potion {
-    int getEffect() override;
+    public:
+    WD(int x, int y, std::shared_ptr<Buff> buff);
     void addBuff() override;
 };
 

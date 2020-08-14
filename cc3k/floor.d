@@ -1,2 +1,4 @@
 floor.o: floor.cc floor.h player.h character.h state.h buff.h enemy.h \
-  textdisplay.h item.h chamber.h
+  textdisplay.h potion.h item.h treasure.h chamber.h rh.h ph.h ba.h wa.h \
+  bd.h wd.h normal.h small.h merchanhoard.h dragonhoard.h human.h \
+  dwarf.h halfling.h elf.h orcs.h merchant.h

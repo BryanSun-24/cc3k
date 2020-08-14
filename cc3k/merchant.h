@@ -8,6 +8,8 @@
 class Merchant: public Enemy {
     bool isAttack;
     std::shared_ptr<MerchanHoard> hoard;
+    public:
+    Merchant(int x, int y);
 };
 
 #endif

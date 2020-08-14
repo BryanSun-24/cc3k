@@ -3,8 +3,9 @@
 
 #include "item.h"
 #include <memory>
+#include "player.h"
 
-class Player;
+#include <iostream>
 
 class Treasure: public Item{
     protected:
