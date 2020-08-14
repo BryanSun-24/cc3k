@@ -1,8 +1,9 @@
 #include "small.h"
 
-Small::Small(int x, int y, int num, std::shared_ptr<Player> player):Treasure{x,y,num,player} {}
+Small::Small(int x, int y, std::shared_ptr<Player> player):Treasure{x,y,1,player} {}
 
 void Small::addGold(){
-    //this->player->
+    //std::cout << "called pick Small" << std::endl;
+    this->player->addGold(this->num);
 }
 

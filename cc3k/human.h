@@ -8,6 +8,8 @@
 
 class Human: public Enemy {
     std::vector< std::shared_ptr<Normal> > piles;
+    public:
+    Human(int x, int y);
 };
 
 #endif

@@ -5,7 +5,7 @@
 
 class Small: public Treasure {
     public:
-    Small(int x, int y, int num, std::shared_ptr<Player> player);
+    Small(int x, int y, std::shared_ptr<Player> player);
     void addGold() override;
 };
 

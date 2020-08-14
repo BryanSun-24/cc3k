@@ -12,6 +12,7 @@ class Character: public State {
     public:
     Character(int x, int y, int health, int attack, int defense, int gold);
     void addHealth(int health);
+    void addGold(int gold);
     //void addGold(int gold);
     //void minusGold(int gold);
     int getGold();

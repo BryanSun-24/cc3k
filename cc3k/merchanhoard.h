@@ -4,7 +4,8 @@
 #include "treasure.h"
 
 class MerchanHoard: public Treasure {
-    int getGold() override;
+    public:
+    MerchanHoard(int x, int y, std::shared_ptr<Player> player);
     void addGold() override;
 };
 

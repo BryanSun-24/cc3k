@@ -4,7 +4,8 @@
 #include "enemy.h"
 
 class Orcs: public Enemy {
-
+    public:
+    Orcs(int x, int y, int gold);
 };
 
 #endif
