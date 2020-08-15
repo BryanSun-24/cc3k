@@ -11,6 +11,7 @@
 #include "vampire.h"
 #include "drow.h"
 #include "troll.h"
+#include "goblin.h"
 
 #include "floor.h"
  
@@ -38,18 +39,29 @@ int main(int argc, char * argv[]){
             std::cout << "choose your hero, v for Vampire" << std::endl;
             std::cout << "choose your hero, t for Troll" << std::endl;
             std::cout << "choose your hero, d for Drow" << std::endl;
+            std::cout << "choose your hero, g for Goblin" << std::endl;
             std::cin >> command;
             std::shared_ptr<Player> player;
             auto buff = std::make_shared<Buff>();
             switch (command){
                 case 's':
                     player = std::make_shared<Shade>(-1,-1, buff);
+                    break;
                 case 'v':
                     player = std::make_shared<Vampire>(-1,-1, buff);
+                    break;
                 case 't':
                     player = std::make_shared<Troll>(-1,-1, buff);
+                    break;
                 case 'd':
                     player = std::make_shared<Drow>(-1,-1, buff);
+                    break;
+                case 'g':
+                    player = std::make_shared<Goblin>(-1,-1, buff);
+                    break;
+                default:
+                    player = std::make_shared<Shade>(-1,-1, buff);
+                    break;
             }
 
             for(int i = 0; i < 5; ++i){
@@ -91,6 +103,10 @@ int main(int argc, char * argv[]){
                             std::cout << battle.rdbuf() << std::endl;
                             usleep(1500000);
                             floors[i]->print();
+                            continue;
+                        }
+                        catch (MoveException &e){
+                            std::cout << "\033[1m\033[31m" << e.message() << REST << std::endl;
                             continue;
                         }
                         catch (AttackException &e) {

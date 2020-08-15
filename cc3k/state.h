@@ -9,7 +9,7 @@ class State {
     virtual ~State() {};
     int getRow();
     int getCol();
-    void setPos(int x, int y);
+    virtual void setPos(int x, int y);
 };
 
 #endif

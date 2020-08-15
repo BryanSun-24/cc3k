@@ -41,6 +41,10 @@ std::shared_ptr<Buff> Player::getBuff(){
     return this->buff;
 }
 
+int Player::getMax(){
+    return this->maxHp;
+}
+
 void Player::attack(Human& human) {
     //std::cout << "called attack human" << std::endl;
     int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + human.getDefense())));

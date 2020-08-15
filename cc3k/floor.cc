@@ -346,7 +346,7 @@ char Floor::getSymbol(std::string direction) {
 }
 
 void Floor::movePlayer(std::string direction, std::string command) {
-    bool valid;
+    bool valid = false;
     int curRow = this->player->getRow();
     int curCol = this->player->getCol();
 
@@ -363,16 +363,9 @@ void Floor::movePlayer(std::string direction, std::string command) {
         valid = this->textdisplay->validMovePotion(nextRow, nextCol);
         if(!valid){ throw PotionException(); }
     }
-    /*if(command == "attack"){
-        valid = this->textdisplay->validAttackEnemy(nextRow, nextCol);
-        if(!valid){ throw AttackException(); }
-    }*/
-    
     if(valid){
-        //if(this->textdisplay->checkStair(nextRow,nextCol)){
-            //return '\\';
-        //}
         this->player->setPos(nextRow,nextCol);
+        this->player->everyTurn();
         this->textdisplay->setSymbol(curRow, curCol);
         this->textdisplay->updateSymbol(nextRow, nextCol);
         this->textdisplay->setCharacter(nextRow,nextCol,'@');
@@ -380,7 +373,7 @@ void Floor::movePlayer(std::string direction, std::string command) {
 }
 
 void Floor::attackPlayerOrMoveEnemies(){
-    for (int i = 0; i < this->enemies.size(); i++){
+    for (unsigned int i = 0; i < this->enemies.size(); i++){
         if (enemies[i]->checkPlayer(this->player->getRow(), this->player->getCol()) && enemies[i]->isHostile()){
             // if player is within the attack region of Enemy, then enemy attack player
             std::cout << "My health before : " << this->player->getHealth() << "\n";
@@ -423,7 +416,7 @@ void Floor::attackEnemy(int row, int col){
         (*it)->beAttacked(this->player);
         // if Merchant being attacked, set all to hostile
         if(!(*it)->isHostile()) { 
-            for(int i = 0; i < this->enemies.size(); ++i){
+            for(unsigned int i = 0; i < this->enemies.size(); ++i){
                 enemies[i]->setHostile();
             } 
         };

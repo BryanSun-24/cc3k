@@ -2,6 +2,7 @@
 #define TROLL_H
 #include "player.h"
 
+
 class Troll: public Player {
     public:
     Troll(int x, int y, std::shared_ptr<Buff> buff);
@@ -13,6 +14,7 @@ class Troll: public Player {
     virtual void attack(Merchant& merchant) override;
     virtual void attack(Halfling& halfling) override;
     virtual void attack(Dragon& dragon) override;
+    void everyTurn() override;
 };
 
 #endif

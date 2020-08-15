@@ -27,6 +27,7 @@ class Player: public Character {
     virtual int attackBuff();
     virtual int defenseBuff(); 
     void resetBuff();
+    virtual void everyTurn() {};
     //void attack(std::shared_ptr<Enemy> enemy);
     virtual void attack(Human& human);
     virtual void attack(Dwarf& dwarf);
@@ -37,6 +38,7 @@ class Player: public Character {
     virtual void attack(Dragon& dragon);
     virtual void beAttacked(std::shared_ptr<Enemy>& enemy) = 0;
     std::shared_ptr<Buff> getBuff();
+    int getMax();
 };
 
 #endif
