@@ -1,7 +1,7 @@
 #ifndef WALKEXCEPTION_H
 #define WALKEXCEPTION_H
 
-#include "exception.h"
+#include "Exception.h"
 #include <string>
 
 class WalkException :public Exception{

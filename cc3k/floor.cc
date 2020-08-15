@@ -28,6 +28,7 @@
 #include "walkException.h"
 #include "potionException.h"
 #include "attackException.h"
+#include "dieException.h"
 
 
 Floor::Floor(int num):floorNum{num} {}
@@ -42,6 +43,7 @@ void Floor::print(){
     std::cout << "attackbuff: " << this->player->attackBuff() << " attack: " << this->player->getAttack() << "\n";
     std::cout << "defensebuff: " << this->player->defenseBuff() << " defense: " << this->player->getDefense() << "\n";
     std::cout << "gold: " << this->player->getGold() << std::endl;
+    std::cout << "health: " << this->player->getHealth() << std::endl;
     //std::cout << "healthbuff: " << this->player->healthBuff() << "health: " << this->player->getHealth() << "\n";
 }
 
@@ -235,9 +237,7 @@ char Floor::getSymbol(std::string direction) {
 }
 
 void Floor::movePlayer(std::string direction, std::string command) {
-    
     bool valid;
-    char symbol;
     int curRow = this->player->getRow();
     int curCol = this->player->getCol();
 
@@ -272,14 +272,16 @@ void Floor::movePlayer(std::string direction, std::string command) {
 
 void Floor::attackPlayerOrMoveEnemies(){
     for (int i = 0; i < this->enemies.size(); i++){
-        if (enemies[i]->checkPlayer(this->player->getRow(), this->player->getCol())){
+        if (enemies[i]->checkPlayer(this->player->getRow(), this->player->getCol()) && enemies[i]->isHostile()){
+            // if player is within the attack region of Enemy, then enemy attack player
             std::cout << "My health before : " << this->player->getHealth() << "\n";
             this->player->beAttacked(enemies[i]);
-             std::cout << "My health after : " << this->player->getHealth() << "\n";
+            std::cout << "My health after : " << this->player->getHealth() << "\n";
             if(!this->player->isAlive()){
-                std::cout << "You are died" << std::endl;
+                throw DieException();
             }
-        }else{
+        } else {
+            // Player is not within range, Enemy move
             bool enemyMovable = false;
             for(int j = 0; j < 8; j++){
                 std::vector<int> Pos = getPos(this->enemies[i]->getRow(), this->enemies[i]->getCol(), "nothing", j);
@@ -310,6 +312,12 @@ void Floor::attackEnemy(int row, int col){
     if(it != this->enemies.end()){
         std::cout << "enemy health before : " << (*it)->getHealth() << "\n";
         (*it)->beAttacked(this->player);
+        // if Merchant being attacked, set all to hostile
+        if(!(*it)->isHostile()) { 
+            for(int i = 0; i < this->enemies.size(); ++i){
+                enemies[i]->setHostile();
+            } 
+        };
         std::cout << "enemy health after : " << (*it)->getHealth() << "\n";
         if(!(*it)->isAlive()){
             int reward = (*it)->getGold();
@@ -347,6 +355,8 @@ void Floor::attackEnemy(int row, int col){
 void Floor::pickPotion(int row, int col){
     auto it = std::find_if(this->potions.begin(), this->potions.end(), [&row, &col](std::shared_ptr<Potion>& potion) { return (potion->getRow() == row)&&(potion->getCol() == col); });
     (*it)->addBuff();
+    // add health if its health potion
+    this->player->gainHp();
     this->potions.erase(it);
 }
 
@@ -356,7 +366,6 @@ void Floor::pickGold(std::string direction){
     std::vector<int> newPos = getPos(curRow, curCol, direction, -1);
     int row = newPos[0];
     int col = newPos[1];
-    //std::cout << "called pickGold" << std::endl;
     auto it = std::find_if(this->treasures.begin(), this->treasures.end(), [&row, &col](std::shared_ptr<Treasure>& treasure) { return (treasure->getRow() == row)&&(treasure->getCol() == col); });
     if((*it)->isPickable()){
         (*it)->addGold();
@@ -364,6 +373,5 @@ void Floor::pickGold(std::string direction){
     } else {
         throw PickException();
     }
-    
 }
 

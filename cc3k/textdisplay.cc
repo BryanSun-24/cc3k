@@ -15,7 +15,6 @@ Textdisplay::Textdisplay(int row, int col) {
     
     for(int i = 0; i < row; ++i){
         getline(in, line);
-        int len = line.length();
         for(int j = 0; j < col; ++j){
             this->theDisplay[i].emplace_back(line[j]);
         }

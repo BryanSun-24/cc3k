@@ -13,6 +13,7 @@ class Treasure: public Item{
     std::shared_ptr<Player> player;
     public:
     Treasure(int x, int y, int num, bool pickable, std::shared_ptr<Player> player);
+    virtual ~Treasure() {};
     int getGold();
     virtual void addGold() = 0;
     bool isPickable();

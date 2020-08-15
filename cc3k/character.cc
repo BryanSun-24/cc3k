@@ -1,7 +1,5 @@
 #include "character.h"
 
-using namespace std;
-
 Character::Character(int x, int y, int health, int attack, int defense, int gold):State{x,y},health{health},attack{attack},defense{defense},gold{gold},Alive{true}{}
 
 void Character::addHealth(int health){
@@ -31,5 +29,9 @@ bool Character::isAlive(){
         this->Alive = true;
     }
     return this->Alive;
+}
+
+void Character::setMaxHealth(int health){
+    this->health = health;
 }
 

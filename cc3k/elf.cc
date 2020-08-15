@@ -7,7 +7,7 @@
 #include "troll.h"
 #include "goblin.h"
 
-Elf::Elf(int x, int y, int gold):Enemy{x,y,140,30,10,gold,true}{}
+Elf::Elf(int x, int y, int gold):Enemy{x,y,140,30,10,gold,true,true}{}
 
 void Elf::beAttacked(std::shared_ptr<Player>& player){
     std::cout << "called elf beattack" << std::endl;
@@ -22,14 +22,6 @@ void Elf::attack(Shade& shade){
         if(randomAttack == 0){
             shade.addHealth(-1 * damage);
         }
-    }
-}
-
-void Elf::attack(Drow& drow) {
-    int randomAttack = rand() % 2;
-    int damage = std::ceil((((100)  * (this->getAttack())) /  (100 + drow.getDefense()+ drow.defenseBuff())));
-    if(randomAttack == 0){
-        drow.addHealth(-1 * damage);
     }
 }
 

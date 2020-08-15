@@ -8,6 +8,7 @@ class Item: public State {
     int num;
     public:
     Item(int x, int y ,int num);
+    virtual ~Item() {};
 };
 
 #endif

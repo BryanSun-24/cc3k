@@ -1,7 +1,7 @@
 #ifndef ATTACKEXCEPTION_H
 #define ATTACKEXCEPTION_H
 
-#include "exception.h"
+#include "Exception.h"
 #include <string>
 
 class AttackException:public Exception{

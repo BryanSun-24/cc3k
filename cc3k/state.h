@@ -6,6 +6,7 @@ class State {
     int y;
     public:
     State(int x, int y);
+    virtual ~State() {};
     int getRow();
     int getCol();
     void setPos(int x, int y);
