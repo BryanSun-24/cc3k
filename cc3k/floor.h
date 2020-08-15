@@ -22,6 +22,7 @@ class Floor {
     std::vector<std::shared_ptr<Chamber> > chambers;
     public:
     Floor(int num);
+    void readMap(std::string map, int row);
     void init();
     void print();
     void setChambers();

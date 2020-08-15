@@ -33,6 +33,115 @@
 
 Floor::Floor(int num):floorNum{num} {}
 
+void Floor::readMap(std::string map, int row){
+    std::cout << "called readMap" << std::endl;
+    std::cout << "map: " << map << std::endl;
+    std::cout << "row: " << row << std::endl;
+    std::ifstream in{map};
+    std::string line;
+    for(int i = 0; i < row; ++i) { getline(in, line); }
+
+    for(int i = 0; i < 25; ++i){
+        getline(in, line);
+        for(int j = 0; j < 81; ++j){
+            this->textdisplay->setCharacter(i,j,line[j]);
+        }
+    }
+
+    for(int i = 0; i < 25; ++i ){
+        for(int j = 0; j < 81; ++j){
+            int randGold = rand() % 2 + 1;
+            int symbol = this->textdisplay->getSymbol(i,j);
+            if (symbol == '0') {
+                this->potions.emplace_back(std::make_shared<RH>(i,j,this->player->getBuff()));
+                this->textdisplay->setPotion(i,j);
+            }
+            else if (symbol == '1'){
+                this->potions.emplace_back(std::make_shared<BA>(i,j,this->player->getBuff()));
+                this->textdisplay->setPotion(i,j);
+            }
+            else if (symbol == '2'){
+                this->potions.emplace_back(std::make_shared<BD>(i,j,this->player->getBuff()));
+                this->textdisplay->setPotion(i,j);
+            }
+            else if (symbol == '3'){
+                this->potions.emplace_back(std::make_shared<PH>(i,j,this->player->getBuff()));
+                this->textdisplay->setPotion(i,j);
+            }
+            else if (symbol == '4'){
+                this->potions.emplace_back(std::make_shared<WA>(i,j,this->player->getBuff()));
+                this->textdisplay->setPotion(i,j);
+            }
+            else if (symbol== '5'){
+                this->potions.emplace_back(std::make_shared<WD>(i,j,this->player->getBuff()));
+                this->textdisplay->setPotion(i,j);
+            }
+            else if (symbol == '6'){
+                this->treasures.emplace_back(std::make_shared<Normal>(i,j,this->player));
+                this->textdisplay->setGold(i,j);
+            }
+            else if (symbol == '7'){
+                this->treasures.emplace_back(std::make_shared<Small>(i,j,this->player));
+                this->textdisplay->setGold(i,j);
+            }
+            else if (symbol == '8'){
+                this->treasures.emplace_back(std::make_shared<MerchanHoard>(i,j,this->player));
+                this->textdisplay->setGold(i,j);
+            }
+            else if (symbol == '9'){
+                auto dragonhoard = std::make_shared<DragonHoard>(i,j, this->player);
+                this->treasures.emplace_back(dragonhoard);
+                this->textdisplay->setGold(i,j);
+                for(int k = 0; k < 8; k++){
+                    std::vector<int> pos = getPos(i,j, "nothing", k);
+                    if(this->textdisplay->getSymbol(pos[0], pos[1]) == 'D'){
+                        this->enemies.emplace_back(std::make_shared<Dragon>(pos[0],pos[1],dragonhoard));
+                        this->textdisplay->setCharacter(pos[0],pos[1],'D');
+                        break;
+                    }
+                }
+            }
+            else if (symbol == 'H'){
+                this->enemies.emplace_back(std::make_shared<Human>(i,j));
+                this->textdisplay->setCharacter(i,j,'H');
+            }
+            else if (symbol == 'M'){
+                this->enemies.emplace_back(std::make_shared<Merchant>(i,j));
+                this->textdisplay->setCharacter(i,j,'M');
+            }
+            else if (symbol == 'W'){
+                this->enemies.emplace_back(std::make_shared<Dwarf>(i,j,randGold));
+                this->textdisplay->setCharacter(i,j,'W');
+            }
+            else if (symbol == 'E'){
+                //int randGold = rand() % 2 + 1;
+                this->enemies.emplace_back(std::make_shared<Elf>(i,j,randGold));
+                this->textdisplay->setCharacter(i,j,'E');
+            }
+            else if (symbol == 'O'){
+                //int randGold = rand() % 2 + 1;
+                this->enemies.emplace_back(std::make_shared<Orcs>(i,j,randGold));
+                this->textdisplay->setCharacter(i,j,'O');
+            }
+            else if (symbol == 'L'){
+                //int randGold = rand() % 2 + 1;
+                this->enemies.emplace_back(std::make_shared<Halfling>(i,j,randGold));
+                this->textdisplay->setCharacter(i,j,'L');
+            }
+            else if (symbol == '\\'){
+                this->textdisplay->setStairs(i,j);
+            }
+            else if (symbol == '@'){
+                this->player->setPos(i,j);
+                this->textdisplay->setCharacter(i,j,'@');
+            }
+            else {
+                continue;
+            }
+        }
+    }
+}
+
 void Floor::init(){
     this->textdisplay = std::make_unique<Textdisplay>(25,81);
 }

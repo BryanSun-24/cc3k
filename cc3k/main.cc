@@ -5,13 +5,15 @@
 #include <vector>
 #include <ctime>
 
+#include <unistd.h>
+
 #include "shade.h"
 #include "vampire.h"
 #include "drow.h"
 #include "troll.h"
 
 #include "floor.h"
-
+ 
 #include "moveException.h"
 #include "pickException.h"
 #include "walkException.h"
@@ -19,12 +21,15 @@
 #include "attackException.h"
 #include "dieException.h"
 
-int main(){
+int main(int argc, char * argv[]){
     srand((unsigned int)time(NULL));    
     // create 5 floors, push in to vector
     while(true){
         try{
+            std::ifstream welcome{"welcome.txt"};
+            std::cout << welcome.rdbuf() << std::endl;
             std::vector<std::shared_ptr<Floor>> floors;
+
             for (int i = 0; i < 5; ++i){ floors.emplace_back(std::make_shared<Floor>(i+1)); }
 
             // Choose your character
@@ -52,12 +57,16 @@ int main(){
                 char checkType;
                 floors[i]->init();
                 floors[i]->setPlayer(player);
-                floors[i]->setChambers();
-                floors[i]->randomPlayer();
-                floors[i]->setStairs();
-                floors[i]->setPotions();
-                floors[i]->setTreasures();
-                floors[i]->setEnemies();
+                if(argc > 1){
+                    floors[i]->readMap(argv[1],i * 25);
+                } else{
+                    floors[i]->setChambers();
+                    floors[i]->randomPlayer();
+                    floors[i]->setStairs();
+                    floors[i]->setPotions();
+                    floors[i]->setTreasures();
+                    floors[i]->setEnemies();
+                }
                 floors[i]->print();
                 while(std::cin >> direction){
                     if(direction == "u"){
@@ -78,6 +87,9 @@ int main(){
                             std::vector<int> Pos = floors[i]->getPos(player->getRow(),player->getCol(), direction, -1);
                             floors[i]->attackEnemy(Pos[0], Pos[1]);
                             floors[i]->attackPlayerOrMoveEnemies();
+                            std::ifstream battle{"fight.txt"};
+                            std::cout << battle.rdbuf() << std::endl;
+                            usleep(1500000);
                             floors[i]->print();
                             continue;
                         }
@@ -86,7 +98,13 @@ int main(){
                             continue;
                         }
                     } else {
-                        checkType = floors[i]->getSymbol(direction);
+                        try{
+                            checkType = floors[i]->getSymbol(direction);
+                        }
+                        catch(MoveException &e){
+                            std::cout << "\033[1m\033[31m" << e.message() << REST << std::endl;
+                            continue;
+                        }
                         if(checkType=='\\'){ 
                             player->resetBuff();
                             break; 
@@ -117,10 +135,10 @@ int main(){
                     }
                 }
             }
-
-            std::cout << "You win!!" << std::endl;
-            std::cout << "Do you want to play again?" << std::endl;
-            std::cout << "type y for Yes, n for No" << std::endl;
+            std::ifstream win{"fight.txt"};
+            std::cout << win.rdbuf() << std::endl;
+            std::cout << "\033[1m\033[35m" << "Do you want to play again?" << REST << std::endl;
+            std::cout <<"type " << "\033[1m\033[31m" << "y" << REST << " for Yes," << "\033[1m\033[31m" << " n " << REST << "for No" << REST << std::endl;
             while(true){
                 std::cin >> command;
                 if(command == 'y'){
@@ -135,9 +153,10 @@ int main(){
             if(command == 'n'){ break; }
         }
         catch(DieException &e){
-            std::cout << "\033[1m\033[31m" << e.message() << REST << std::endl;
-            std::cout << "Do you want to play again?" << std::endl;
-            std::cout << "type y for Yes, n for No" << std::endl;
+            std::ifstream lose{"lose.txt"};
+            std::cout << lose.rdbuf() << std::endl;
+            std::cout << "\033[1m\033[35m" << "Do you want to play again?" << REST << std::endl;
+            std::cout <<"type " << "\033[1m\033[31m" << "y" << REST << " for Yes," << "\033[1m\033[31m" << " n " << REST << "for No" << REST << std::endl;
             char command;
             while(true){
                 std::cin >> command;
@@ -153,5 +172,7 @@ int main(){
             if(command == 'n'){ break; }
         }
     }
+    std::ifstream bye{"byebye.txt"};
+    std::cout << bye.rdbuf() << std::endl;
     return 0;
 }
