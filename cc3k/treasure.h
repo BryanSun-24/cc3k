@@ -9,11 +9,13 @@
 
 class Treasure: public Item{
     protected:
+    bool pickable;
     std::shared_ptr<Player> player;
     public:
-    Treasure(int x, int y, int num, std::shared_ptr<Player> player);
+    Treasure(int x, int y, int num, bool pickable, std::shared_ptr<Player> player);
     int getGold();
     virtual void addGold() = 0;
+    bool isPickable();
 };
 
 #endif

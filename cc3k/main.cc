@@ -8,8 +8,9 @@
 #include "shade.h"
 #include "floor.h"
 
+#include "Exception.h"
+
 int main(){
-    // 5个floor， 每一个floor都有一个textdisplay
     srand((unsigned int)time(NULL));    
     // create 5 floors, push in to vector
     std::vector<std::shared_ptr<Floor>> floors;
@@ -41,26 +42,58 @@ int main(){
         while(std::cin >> direction){
             if(direction == "u"){
                 std::cin >> direction;
-                checkType = floors[i]->movePlayer(direction,"potion");
-                floors[i]->pickPotion(player->getRow(), player->getCol());
-                floors[i]->print();
-                continue;
+                try{
+                    floors[i]->movePlayer(direction,"potion");
+                    floors[i]->pickPotion(player->getRow(), player->getCol());
+                    floors[i]->print();
+                    continue;
+                }
+                catch(Exception &e){
+                    std::cout << "\033[1m\033[31m" << e.message() << REST << std::endl;
+                    continue;
+                }
+            } else if(direction == "a"){
+                std::cin >> direction;
+                try{
+                    std::vector<int> Pos = floors[i]->getPos(player->getRow(),player->getCol(), direction, -1);
+                    floors[i]->attackEnemy(Pos[0], Pos[1]);
+                    floors[i]->attackPlayerOrMoveEnemies();
+                    floors[i]->print();
+                    continue;
+                }
+                catch (Exception &e) {
+                    std::cout << "\033[1m\033[31m" << e.message() << REST << std::endl;
+                    continue;
+                }
+            } else {
+                checkType = floors[i]->getSymbol(direction);
+                if(checkType=='\\'){ 
+                    player->resetBuff();
+                    break; 
+                }
+                if(checkType == 'G'){  
+                    try{
+                        floors[i]->pickGold(direction);
+                        floors[i]->movePlayer(direction,"normal");
+                        floors[i]->attackPlayerOrMoveEnemies();
+                        floors[i]->print();
+                    }
+                    catch (Exception &e){
+                        std::cout << "\033[1m\033[31m" << e.message() << REST << std::endl;
+                    }
+                }else{
+                    try{
+                        floors[i]->movePlayer(direction,"normal");
+                        floors[i]->attackPlayerOrMoveEnemies();
+                        floors[i]->print();
+                    }
+                    catch (Exception &e){
+                        std::cout << "\033[1m\033[31m" << e.message() << REST << std::endl;
+                    }
+                }
             }
-            checkType = floors[i]->movePlayer(direction,"normal");
-            std::cout << "checkType: " << checkType << std::endl;
-            if(checkType == 'G'){
-                floors[i]->pickGold(player->getRow(), player->getCol());
-            }
-            if(checkType=='\\'){ 
-                player->resetBuff();
-                break; 
-            }
-            // catch exception;
-            // move enemy;
-            floors[i]->print();
         }
-        //floors[i]->print();
     }
+    std::cout << "You win!!" << std::endl;
     return 0;
 }
-

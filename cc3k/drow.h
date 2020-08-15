@@ -2,7 +2,7 @@
 #define DROW_H
 #include "player.h"
 
-class DROW: public Player {
+class Drow: public Player {
 
 };
 

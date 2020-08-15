@@ -26,8 +26,8 @@ void Textdisplay::print(){
     std::cout << (*this); 
 }
 
-void Textdisplay::setPlayer(int row, int col){
-    this->theDisplay[row][col] = '@';
+void Textdisplay::setCharacter(int row, int col, char symbol){
+    this->theDisplay[row][col] = symbol;
 }
 
 void Textdisplay::setSymbol(int row, int col){

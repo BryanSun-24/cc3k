@@ -25,6 +25,11 @@ int Character::getDefense(){
     return this->defense;
 }
 bool Character::isAlive(){
+    if(this->health <= 0){
+        this->Alive = false;
+    } else {
+        this->Alive = true;
+    }
     return this->Alive;
 }
 

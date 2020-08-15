@@ -28,13 +28,19 @@ class Floor {
     void setEnemies();
     void setPlayer(std::shared_ptr<Player> player);
     void randomPlayer();
-    char movePlayer(std::string direction,std::string command);
+    void movePlayer(std::string direction,std::string command);
+    char getSymbol(std::string direction);
     void setTreasures();
     void setPotions();
     void setStairs();
     void pickPotion(int row, int col);
-    void pickGold(int row, int col);
+    void pickGold(std::string direction);
     std::vector<int> generateValidPos();
+    void attackPlayerOrMoveEnemies();
+    void attackEnemy(int row, int col);
+
+
+    std::vector<int> getPos(int x, int y, std::string direction, int direc);
 };
 
 #endif

@@ -29,6 +29,3 @@ std::shared_ptr<Buff> Player::getBuff(){
     return this->buff;
 }
 
-void Player::attack(std::shared_ptr<Enemy> enemy){
-
-}
