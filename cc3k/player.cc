@@ -2,13 +2,25 @@
 #include "enemy.h"
 #include "buff.h"
 
+#include "human.h"
+#include "dwarf.h"
+#include "elf.h"
+#include "orcs.h"
+#include "merchant.h"
+#include "halfling.h"
+#include "dragon.h"
+
+
 using namespace std;
 
 Player::Player(int x, int y, int health, int attack, int defense, int gold, int maxHp, std::shared_ptr<Buff> buff):Character{x,y,health,attack,defense,gold},maxHp{maxHp},buff{buff} {}
 
 // directly add or minus health from buff
-void Player::gainHp(int hp){
-    this->addHealth(hp);
+void Player::gainHp(){
+    this->addHealth(this->buff->getHealth());
+    if(this->getHealth() > this->maxHp){
+        this->setMaxHealth(this->maxHp);
+    }
 }
 
 // calculate attack buff, will be calculated together with originial attack in the combat
@@ -29,6 +41,51 @@ std::shared_ptr<Buff> Player::getBuff(){
     return this->buff;
 }
 
-void Player::attack(std::shared_ptr<Enemy> enemy){
-
+void Player::attack(Human& human) {
+    //std::cout << "called attack human" << std::endl;
+    int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + human.getDefense())));
+    human.addHealth(-1 * damage);
 }
+
+void Player::attack(Dwarf& dwarf) {
+    //std::cout << "called attack Dwarf" << std::endl;
+    int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + dwarf.getDefense())));
+    dwarf.addHealth(-1 * damage);
+}
+
+void Player::attack(Elf&  elf) {
+    //std::cout << "called attack Elf" << std::endl;
+    int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + elf.getDefense())));
+    elf.addHealth(-1 * damage);
+}
+
+void Player::attack(Orcs& orcs) {
+    //std::cout << "called attack Orcs" << std::endl;
+    int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + orcs.getDefense())));
+    orcs.addHealth(-1 * damage);
+    
+}
+
+void Player::attack(Merchant&  merchant){
+    //std::cout << "called attack Merchant" << std::endl;
+    int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + merchant.getDefense())));
+    merchant.addHealth(-1 * damage);
+}
+
+void Player::attack(Halfling& halfling){
+    //std::cout << "called attack Halfling" << std::endl;
+    int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + halfling.getDefense())));
+    int randomAttack = rand() % 2;
+    if(randomAttack == 0){
+        halfling.addHealth(-1 * damage);
+    }
+}
+
+void Player::attack(Dragon& dragon){
+    //std::cout << "called attack dragon" << std::endl;
+    int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + dragon.getDefense())));
+    dragon.addHealth(-1 * damage);
+}
+
+
+

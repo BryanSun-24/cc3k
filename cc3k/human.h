@@ -7,9 +7,9 @@
 #include "normal.h"
 
 class Human: public Enemy {
-    std::vector< std::shared_ptr<Normal> > piles;
     public:
     Human(int x, int y);
+    virtual void beAttacked(std::shared_ptr<Player>& player) override;
 };
 
 #endif

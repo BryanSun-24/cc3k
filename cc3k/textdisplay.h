@@ -24,7 +24,7 @@ class Textdisplay {
     Textdisplay(int row, int col);
     void print();
     void notify(Floor& floor);
-    void setPlayer(int row, int col);
+    void setCharacter(int row, int col, char symbol);
     void setSymbol(int row, int col);
     void setStairs(int row, int col);
     void setPotion(int row,int col);
@@ -38,6 +38,7 @@ class Textdisplay {
 
     bool validMove(int row, int col);
     bool validMovePotion(int row, int col);
+    
     void updateSymbol(int row, int col);
     bool checkStair(int nextRow,int nextCol);
     bool checkEmpty(int row, int col);

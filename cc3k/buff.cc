@@ -1,7 +1,5 @@
 #include "buff.h"
 
-using namespace std;
-
 Buff::Buff():attack{0},defense{0},health{0} {}
 
 int Buff::getAttack(){
@@ -13,7 +11,9 @@ int Buff::getDefense(){
 }
 
 int Buff::getHealth(){
-    return this->health;
+    int health = this->health;
+    this->health = 0;
+    return health;
 }
     
 void Buff::attackPotion(int attack){

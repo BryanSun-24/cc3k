@@ -6,10 +6,9 @@
 #include "merchanhoard.h"
 
 class Merchant: public Enemy {
-    bool isAttack;
-    std::shared_ptr<MerchanHoard> hoard;
     public:
     Merchant(int x, int y);
+    virtual void beAttacked(std::shared_ptr<Player>& player) override;
 };
 
 #endif

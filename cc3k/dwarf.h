@@ -8,6 +8,7 @@
 class Dwarf: public Enemy {
     public:
     Dwarf(int x, int y, int gold);
+    virtual void beAttacked(std::shared_ptr<Player>& player) override;
 };
 
 #endif

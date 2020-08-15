@@ -6,8 +6,12 @@
 #include "dragonhoard.h"
 
 class Dragon: public Enemy {
-    bool isKilled;
     std::shared_ptr<DragonHoard> dragonHoard;
+    public:
+    Dragon(int x, int y, std::shared_ptr<DragonHoard> dragonHoard);
+    virtual void beAttacked(std::shared_ptr<Player>& player) override;
+    void setGoldPickable() override;
+    bool checkPlayer(int row, int col) override;
 };
 
 #endif
