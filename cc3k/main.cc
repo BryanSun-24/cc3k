@@ -5,7 +5,6 @@
 #include <vector>
 #include <ctime>
 
-#include <unistd.h>
 
 #include "shade.h"
 #include "vampire.h"
@@ -21,6 +20,8 @@
 #include "potionException.h"
 #include "attackException.h"
 #include "dieException.h"
+#include "quitException.h"
+#include "restartException.h"
 
 int main(int argc, char * argv[]){
     srand((unsigned int)time(NULL));    
@@ -35,11 +36,12 @@ int main(int argc, char * argv[]){
 
             // Choose your character
             char command;
-            std::cout << "choose your hero, s for Shade" << std::endl;
-            std::cout << "choose your hero, v for Vampire" << std::endl;
-            std::cout << "choose your hero, t for Troll" << std::endl;
-            std::cout << "choose your hero, d for Drow" << std::endl;
-            std::cout << "choose your hero, g for Goblin" << std::endl;
+            std::cout << "Choose Your Hero!" << std::endl;
+            std::cout << "\033[1m\033[31m" << "s" << REST << " for Shade"<< std::endl;
+            std::cout << "\033[1m\033[31m" << "v" << REST << " for Vampire, " << "gains 5 HP every successful attack and has no maximum HP" << std::endl;
+            std::cout << "\033[1m\033[31m" << "t" << REST << " for Troll, " << "regains 5 HP every turn; HP is capped at 120 HP" << std::endl;
+            std::cout << "\033[1m\033[31m" << "d" << REST << " for Drow, " << "all potions have their effect magnified by 1.5" << std::endl;
+            std::cout << "\033[1m\033[31m" << "g" << REST << " for Goblin, " << "steals 5 gold from every slain enemy" << std::endl;
             std::cin >> command;
             std::shared_ptr<Player> player;
             auto buff = std::make_shared<Buff>();
@@ -99,9 +101,6 @@ int main(int argc, char * argv[]){
                             std::vector<int> Pos = floors[i]->getPos(player->getRow(),player->getCol(), direction, -1);
                             floors[i]->attackEnemy(Pos[0], Pos[1]);
                             floors[i]->attackPlayerOrMoveEnemies();
-                            std::ifstream battle{"fight.txt"};
-                            std::cout << battle.rdbuf() << std::endl;
-                            usleep(1500000);
                             floors[i]->print();
                             continue;
                         }
@@ -113,6 +112,12 @@ int main(int argc, char * argv[]){
                             std::cout << "\033[1m\033[31m" << e.message() << REST << std::endl;
                             continue;
                         }
+                    } else if(direction == "f"){
+                        floors[i]->pause();
+                    } else if(direction == "q"){
+                        throw QuitException();
+                    } else if(direction == "r"){
+                        throw RestartException();
                     } else {
                         try{
                             checkType = floors[i]->getSymbol(direction);
@@ -151,7 +156,7 @@ int main(int argc, char * argv[]){
                     }
                 }
             }
-            std::ifstream win{"fight.txt"};
+            std::ifstream win{"winning.txt"};
             std::cout << win.rdbuf() << std::endl;
             std::cout << "\033[1m\033[35m" << "Do you want to play again?" << REST << std::endl;
             std::cout <<"type " << "\033[1m\033[31m" << "y" << REST << " for Yes," << "\033[1m\033[31m" << " n " << REST << "for No" << REST << std::endl;
@@ -186,6 +191,12 @@ int main(int argc, char * argv[]){
             }
             if(command == 'y'){ continue; }
             if(command == 'n'){ break; }
+        }
+        catch(QuitException &e){
+            break;
+        }
+        catch(RestartException &e){
+            continue;
         }
     }
     std::ifstream bye{"byebye.txt"};

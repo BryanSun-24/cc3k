@@ -7,10 +7,9 @@
 #include "troll.h"
 #include "goblin.h"
 
-Elf::Elf(int x, int y, int gold):Enemy{x,y,140,30,10,gold,true,true}{}
+Elf::Elf(int x, int y, int gold):Enemy{x,y,140,30,10,gold,"Elf",true,true,true}{}
 
 void Elf::beAttacked(std::shared_ptr<Player>& player){
-    std::cout << "called elf beattack" << std::endl;
     player->attack(*this);
 }
 

@@ -7,11 +7,10 @@
 #include "troll.h"
 #include "goblin.h"
 
-Orcs::Orcs(int x, int y, int gold):Enemy{x,y,180,30,25,gold,true,true}{}
+Orcs::Orcs(int x, int y, int gold):Enemy{x,y,180,30,25,gold,"Orc",true,true,true}{}
 
 
 void Orcs::beAttacked(std::shared_ptr<Player>& player){
-    std::cout << "called orcs beattack" << std::endl;
     player->attack(*this);
 }
 

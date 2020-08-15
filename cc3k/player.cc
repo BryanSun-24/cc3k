@@ -13,7 +13,7 @@
 
 using namespace std;
 
-Player::Player(int x, int y, int health, int attack, int defense, int gold, int maxHp, std::shared_ptr<Buff> buff):Character{x,y,health,attack,defense,gold},maxHp{maxHp},buff{buff} {}
+Player::Player(int x, int y, int health, int attack, int defense, int gold, std::string race, int maxHp, std::shared_ptr<Buff> buff):Character{x,y,health,attack,defense,gold,race},maxHp{maxHp},buff{buff} {}
 
 // directly add or minus health from buff
 void Player::gainHp(){

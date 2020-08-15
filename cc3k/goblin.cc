@@ -8,7 +8,7 @@
 #include "dragon.h"
 
 
-Goblin::Goblin(int x, int y, std::shared_ptr<Buff> buff):Player{x,y,110,15,20,0,110,buff} {}
+Goblin::Goblin(int x, int y, std::shared_ptr<Buff> buff):Player{x,y,110,15,20,0,"Goblin",110,buff} {}
 
 void Goblin::beAttacked(std::shared_ptr<Enemy>& enemy) {
     enemy->attack(*this);

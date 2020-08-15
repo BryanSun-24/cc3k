@@ -20,9 +20,11 @@ class Floor {
     std::vector<std::shared_ptr<Potion> > potions;
     std::vector<std::shared_ptr<Treasure> > treasures;
     std::vector<std::shared_ptr<Chamber> > chambers;
+    std::string action;
     public:
     Floor(int num);
     void readMap(std::string map, int row);
+    void pause();
     void init();
     void print();
     void setChambers();
@@ -39,8 +41,6 @@ class Floor {
     std::vector<int> generateValidPos();
     void attackPlayerOrMoveEnemies();
     void attackEnemy(int row, int col);
-
-
     std::vector<int> getPos(int x, int y, std::string direction, int direc);
 };
 

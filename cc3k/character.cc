@@ -1,6 +1,6 @@
 #include "character.h"
 
-Character::Character(int x, int y, int health, int attack, int defense, int gold):State{x,y},health{health},attack{attack},defense{defense},gold{gold},Alive{true}{}
+Character::Character(int x, int y, int health, int attack, int defense, int gold, std::string race):State{x,y},health{health},attack{attack},defense{defense},gold{gold},Alive{true},race{race} {}
 
 void Character::addHealth(int health){
     this->health += health;
@@ -29,6 +29,10 @@ bool Character::isAlive(){
         this->Alive = true;
     }
     return this->Alive;
+}
+
+std::string Character::getRaceType(){
+    return this->race;
 }
 
 void Character::setMaxHealth(int health){

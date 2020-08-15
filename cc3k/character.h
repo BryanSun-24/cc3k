@@ -1,6 +1,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include <string>
 #include "state.h"
 
 class Character: public State {
@@ -9,8 +10,9 @@ class Character: public State {
     int defense;
     int gold;
     bool Alive;
+    std::string race;
     public:
-    Character(int x, int y, int health, int attack, int defense, int gold);
+    Character(int x, int y, int health, int attack, int defense, int gold, std::string race);
     virtual ~Character() {};
     void addHealth(int health);
     void setMaxHealth(int health);
@@ -22,6 +24,7 @@ class Character: public State {
     int getHealth();
     int getDefense();
     bool isAlive();
+    std::string getRaceType();
 };
 
 #endif

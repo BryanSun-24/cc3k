@@ -21,7 +21,7 @@ class Player: public Character {
     int maxHp;   
     std::shared_ptr<Buff> buff; 
     public:
-    Player(int x, int y, int health, int attack, int defense, int gold, int maxHp, std::shared_ptr<Buff> buff);
+    Player(int x, int y, int health, int attack, int defense, int gold, std::string race, int maxHp, std::shared_ptr<Buff> buff);
     virtual ~Player() {};
     virtual void gainHp();
     virtual int attackBuff();

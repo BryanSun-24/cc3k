@@ -15,12 +15,14 @@ class Goblin;
 
 class Enemy: public Character {
     bool moveAble;
+    bool fmoveAble;
     bool hostile;
     public:
-    Enemy(int x, int y, int health, int attack, int defense, int gold, bool moveAble, bool hostile);
+    Enemy(int x, int y, int health, int attack, int defense, int gold, std::string race, bool moveAble, bool fmoveAble, bool hostile);
     virtual ~Enemy() {};
     virtual bool checkPlayer(int row, int col);
     bool isMovable();
+    bool isfMovable();
     bool isHostile();
     virtual void attack(Shade& shade);
     virtual void attack(Drow& drow);
@@ -30,6 +32,7 @@ class Enemy: public Character {
     virtual void beAttacked(std::shared_ptr<Player>& player) = 0;
     virtual void setGoldPickable() {};
     virtual void setHostile();
+    void setPause();
 };
 
 #endif

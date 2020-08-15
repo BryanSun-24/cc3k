@@ -12,7 +12,7 @@ class Treasure: public Item{
     bool pickable;
     std::shared_ptr<Player> player;
     public:
-    Treasure(int x, int y, int num, bool pickable, std::shared_ptr<Player> player);
+    Treasure(int x, int y, std::string type, int num, bool pickable, std::shared_ptr<Player> player);
     virtual ~Treasure() {};
     int getGold();
     virtual void addGold() = 0;

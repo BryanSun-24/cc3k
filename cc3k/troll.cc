@@ -8,7 +8,7 @@
 #include "dragon.h"
 
 
-Troll::Troll(int x, int y, std::shared_ptr<Buff> buff):Player{x,y,120,25,15,0,120,buff} {}
+Troll::Troll(int x, int y, std::shared_ptr<Buff> buff):Player{x,y,120,25,15,0,"Troll",120,buff} {}
 
 void Troll::beAttacked(std::shared_ptr<Enemy>& enemy) {
     enemy->attack(*this);

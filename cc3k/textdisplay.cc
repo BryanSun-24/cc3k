@@ -81,38 +81,6 @@ void Textdisplay::setStairs(int row, int col){
     this->theDisplay[row][col] = '\\';
 }
 
-void Textdisplay::setPotion(int row,int col){
-    this->theDisplay[row][col] = 'P';
-}
-
-void Textdisplay::setGold(int row, int col){
-    this->theDisplay[row][col] = 'G';
-}
-
-void Textdisplay::setHuman(int row, int col){
-    this->theDisplay[row][col] = 'H';
-}
-
-void Textdisplay::setDwarf(int row, int col){
-    this->theDisplay[row][col] = 'W';
-}
-
-void Textdisplay::setElf(int row, int col){
-    this->theDisplay[row][col] = 'E';
-}
-
-void Textdisplay::setOrcs(int row, int col){
-    this->theDisplay[row][col] = 'O';
-}
-
-void Textdisplay::setMerchant(int row, int col){
-    this->theDisplay[row][col] = 'M';
-}
-
-void Textdisplay::setHalfling(int row, int col){
-    this->theDisplay[row][col] = 'L';
-}
-
 std::ostream &operator<<(std::ostream &out, const Textdisplay &td){
     for(size_t i = 0; i < td.theDisplay.size(); ++i){
         for(size_t j = 0; j < td.theDisplay.at(i).size(); ++j){
@@ -139,3 +107,4 @@ std::ostream &operator<<(std::ostream &out, const Textdisplay &td){
     }
     return out;
 }
+

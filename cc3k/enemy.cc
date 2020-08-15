@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Enemy::Enemy(int x, int y, int health, int attack, int defense, int gold, bool moveAble, bool hostile):Character{x,y,health,attack,defense,gold}, moveAble{moveAble}, hostile{hostile} {}
+Enemy::Enemy(int x, int y, int health, int attack, int defense, int gold, std::string race, bool moveAble, bool fmoveAble, bool hostile):Character{x,y,health,attack,defense,gold,race}, moveAble{moveAble}, fmoveAble{fmoveAble},  hostile{hostile} {}
 
 bool Enemy::checkPlayer(int row, int col){
     return ((abs(this->getRow()-row) <= 1) && (abs(this->getCol()-col) <= 1));
@@ -18,6 +18,10 @@ bool Enemy::checkPlayer(int row, int col){
 
 bool Enemy::isMovable(){
     return this->moveAble;
+}
+
+bool Enemy::isfMovable(){
+    return this->fmoveAble;
 }
 
 bool Enemy::isHostile(){
@@ -63,4 +67,9 @@ void Enemy::attack(Goblin& goblin) {
 void Enemy::setHostile(){
     this->hostile = true;
 }
+
+void Enemy::setPause(){
+    this->fmoveAble = !this->fmoveAble;
+}
+
 

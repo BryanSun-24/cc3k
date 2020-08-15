@@ -1,7 +1,7 @@
 #include "drow.h"
 #include "enemy.h"
 
-Drow::Drow(int x, int y, std::shared_ptr<Buff> buff):Player{x,y,150,25,15,0,150,buff} {}
+Drow::Drow(int x, int y, std::shared_ptr<Buff> buff):Player{x,y,150,25,15,0,"Drow",150,buff} {}
 
 void Drow::beAttacked(std::shared_ptr<Enemy>& enemy) {
     enemy->attack(*this);

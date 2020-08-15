@@ -7,7 +7,7 @@
 #include "troll.h"
 #include "goblin.h"
 
-Dragon::Dragon(int x, int y, std::shared_ptr<DragonHoard> dragonHoard):Enemy{x,y,150,20,20,0,false,true},dragonHoard{dragonHoard}{}
+Dragon::Dragon(int x, int y, std::shared_ptr<DragonHoard> dragonHoard):Enemy{x,y,150,20,20,0,"Dragon",false,true,true},dragonHoard{dragonHoard}{}
 
 void Dragon::beAttacked(std::shared_ptr<Player>& player){
     player->attack(*this);

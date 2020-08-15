@@ -27,18 +27,8 @@ class Textdisplay {
     void setCharacter(int row, int col, char symbol);
     void setSymbol(int row, int col);
     void setStairs(int row, int col);
-    void setPotion(int row,int col);
-    void setGold(int row, int col);
-    void setHuman(int row, int col);
-    void setDwarf(int row, int col);
-    void setElf(int row, int col);
-    void setOrcs(int row, int col);
-    void setMerchant(int row, int col);
-    void setHalfling(int row, int col);
-
     bool validMove(int row, int col);
     bool validMovePotion(int row, int col);
-    
     void updateSymbol(int row, int col);
     bool checkStair(int nextRow,int nextCol);
     bool checkEmpty(int row, int col);

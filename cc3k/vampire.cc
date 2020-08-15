@@ -8,7 +8,7 @@
 #include "dragon.h"
 
 
-Vampire::Vampire(int x, int y, std::shared_ptr<Buff> buff):Player{x,y,50,25,25,0,999999999,buff} {}
+Vampire::Vampire(int x, int y, std::shared_ptr<Buff> buff):Player{x,y,50,25,25,0,"Vampire",999999999,buff} {}
 
 void Vampire::beAttacked(std::shared_ptr<Enemy>& enemy) {
     enemy->attack(*this);
