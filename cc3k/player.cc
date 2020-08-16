@@ -47,38 +47,32 @@ int Player::getMax(){
 }
 
 void Player::attack(Human& human) {
-    //std::cout << "called attack human" << std::endl;
     int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + human.getDefense())));
     human.addHealth(-1 * damage);
 }
 
 void Player::attack(Dwarf& dwarf) {
-    //std::cout << "called attack Dwarf" << std::endl;
     int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + dwarf.getDefense())));
     dwarf.addHealth(-1 * damage);
 }
 
 void Player::attack(Elf&  elf) {
-    //std::cout << "called attack Elf" << std::endl;
     int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + elf.getDefense())));
     elf.addHealth(-1 * damage);
 }
 
 void Player::attack(Orcs& orcs) {
-    //std::cout << "called attack Orcs" << std::endl;
     int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + orcs.getDefense())));
     orcs.addHealth(-1 * damage);
     
 }
 
 void Player::attack(Merchant&  merchant){
-    //std::cout << "called attack Merchant" << std::endl;
     int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + merchant.getDefense())));
     merchant.addHealth(-1 * damage);
 }
 
 void Player::attack(Halfling& halfling){
-    //std::cout << "called attack Halfling" << std::endl;
     int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + halfling.getDefense())));
     int randomAttack = rand() % 2;
     if(randomAttack == 0){
@@ -87,13 +81,11 @@ void Player::attack(Halfling& halfling){
 }
 
 void Player::attack(Dragon& dragon){
-    //std::cout << "called attack dragon" << std::endl;
     int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + dragon.getDefense())));
     dragon.addHealth(-1 * damage);
 }
 
 void Player::attack(Superman& superman){
-    //std::cout << "called attack dragon" << std::endl;
     int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + superman.getDefense())));
     superman.addHealth(-1 * damage);
 }

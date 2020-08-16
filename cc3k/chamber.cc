@@ -36,12 +36,9 @@ Chamber::Chamber(int ID): ID{ID}{
 }
 
 std::vector<int> Chamber::generateChamberPos(){
-    //std::cout << "called generateChamber" << std::endl;
     int x;
     int size = this->listofChamber.size();
-    //std::cout << "size: " << size << std::endl;
     x = rand() % size;
-    //std::cout << "random x: "<< x << std::endl;
     return listofChamber[x];
 }
 

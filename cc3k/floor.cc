@@ -498,13 +498,7 @@ void Floor::pickGold(std::string direction){
     }
 }
 
-//
 bool Floor::isTradable(int row, int col) {
-    /*for (unsigned int i = 0; i < this->enemies.size(); i++){
-        if (enemies[i]->checkPlayer(this->player->getRow(), this->player->getCol()) && !enemies[i]->isHostile() && enemies[i]->getRaceType() == "Merchant"){
-            return true;
-        }
-    }*/
     auto merchant = std::find_if(this->enemies.begin(), this->enemies.end(), [&row, &col](std::shared_ptr<Enemy>& enemies) { return (enemies->getRow() == row)&&(enemies->getCol() == col); });
     if(merchant != this->enemies.end() && !(*merchant)->isHostile()){
         return true;
