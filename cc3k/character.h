@@ -17,8 +17,6 @@ class Character: public State {
     void addHealth(int health);
     void setMaxHealth(int health);
     void addGold(int gold);
-    //void addGold(int gold);
-    //void minusGold(int gold);
     int getGold();
     int getAttack();
     int getHealth();

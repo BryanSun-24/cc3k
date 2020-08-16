@@ -24,6 +24,7 @@
 #include "orcs.h"
 #include "merchant.h"
 #include "dragon.h"
+#include "superman.h"
 
 #include "moveException.h"
 #include "pickException.h"
@@ -179,7 +180,7 @@ void Floor::randomPlayer(){
 void Floor::setEnemies(){
      for(int i = 0; i< 20; ++i){
         std::vector<int> Pos = this->generateValidPos();
-        int randomEnemy = rand() % 18;
+        int randomEnemy = rand() % 19;
         if(randomEnemy >= 0 && randomEnemy <= 3){
             this->enemies.emplace_back(std::make_shared<Human>(Pos[0],Pos[1]));
             this->textdisplay->setCharacter(Pos[0],Pos[1],'H');
@@ -188,19 +189,23 @@ void Floor::setEnemies(){
             this->enemies.emplace_back(std::make_shared<Dwarf>(Pos[0],Pos[1],randGold));
             this->textdisplay->setCharacter(Pos[0],Pos[1],'W');
         }
-        else if(randomEnemy >= 7 && randomEnemy <= 11){
+        else if(randomEnemy >= 7 && randomEnemy <= 8){
             int randGold = rand() % 2 + 1;
             this->enemies.emplace_back(std::make_shared<Elf>(Pos[0],Pos[1],randGold));
             this->textdisplay->setCharacter(Pos[0],Pos[1],'E');
         }
-        else if(randomEnemy >= 12 && randomEnemy <= 13){
+        else if(randomEnemy >= 9 && randomEnemy <= 10){
             int randGold = rand() % 2 + 1;
             this->enemies.emplace_back(std::make_shared<Orcs>(Pos[0],Pos[1],randGold));
             this->textdisplay->setCharacter(Pos[0],Pos[1],'O');
         }
-        else if(randomEnemy >= 14 && randomEnemy <= 15){
+        else if(randomEnemy >= 11 && randomEnemy <= 12){
             this->enemies.emplace_back(std::make_shared<Merchant>(Pos[0],Pos[1]));
             this->textdisplay->setCharacter(Pos[0],Pos[1],'M');
+        }
+        else if(randomEnemy == 13) {
+            this->enemies.emplace_back(std::make_shared<Superman>(Pos[0],Pos[1]));
+            this->textdisplay->setCharacter(Pos[0],Pos[1],'S');
         }
         else {
             int randGold = rand() % 2 + 1;
@@ -385,7 +390,7 @@ void Floor::attackPlayerOrMoveEnemies(){
             int healthBefore = this->player->getHealth();
             this->player->beAttacked(enemies[i]);
             int damage = healthBefore - this->player->getHealth();
-            this->action = this->action + this->enemies[i]->getRaceType() + " deals " + std::to_string(damage) + " to PC.";
+            this->action = this->action + " " +this->enemies[i]->getRaceType() + " deals " + std::to_string(damage) + " to PC.";
             if(!this->player->isAlive()){
                 throw DieException();
             }
@@ -421,7 +426,7 @@ void Floor::attackEnemy(int row, int col){
         (*it)->beAttacked(this->player);
         int damage = Healthbefore - (*it)->getHealth();
         if((*it)->isAlive()){ 
-            this->action = "Pc deals " + std::to_string(damage) + " to " + (*it)->getRaceType() + ". ";
+            this->action = "Pc deals " + std::to_string(damage) + " to " + (*it)->getRaceType() + ".";
             std::ifstream battle{"fight.txt"};
             std::cout << battle.rdbuf() << std::endl;
             usleep(800000);
@@ -490,6 +495,45 @@ void Floor::pickGold(std::string direction){
         this->treasures.erase(it);
     } else {
         throw PickException();
+    }
+}
+
+//
+bool Floor::isTradable(int row, int col) {
+    /*for (unsigned int i = 0; i < this->enemies.size(); i++){
+        if (enemies[i]->checkPlayer(this->player->getRow(), this->player->getCol()) && !enemies[i]->isHostile() && enemies[i]->getRaceType() == "Merchant"){
+            return true;
+        }
+    }*/
+    auto merchant = std::find_if(this->enemies.begin(), this->enemies.end(), [&row, &col](std::shared_ptr<Enemy>& enemies) { return (enemies->getRow() == row)&&(enemies->getCol() == col); });
+    if(merchant != this->enemies.end() && !(*merchant)->isHostile()){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void Floor::addPotion(std::string pot) {
+    if (pot == "RH") {
+        auto potion = std::make_shared<RH>(-1,-1,this->player->getBuff());
+        potion->addBuff();
+        this->player->gainHp();
+    } else if (pot == "BA") {
+        auto potion = std::make_shared<BA>(-1,-1,this->player->getBuff());
+        potion->addBuff();
+    } else if (pot == "BD") {
+        auto potion = std::make_shared<BD>(-1,-1,this->player->getBuff());
+        potion->addBuff();
+    } else if (pot == "PH") {
+        auto potion = std::make_shared<PH>(-1,-1,this->player->getBuff());
+        potion->addBuff();
+        this->player->gainHp();
+    } else if (pot == "WA") {
+        auto potion = std::make_shared<WA>(-1,-1,this->player->getBuff());
+        potion->addBuff();
+    } else if (pot == "WD") {
+        auto potion = std::make_shared<WD>(-1,-1,this->player->getBuff());
+        potion->addBuff();
     }
 }
 

@@ -7,6 +7,7 @@
 #include "vampire.h"
 #include "troll.h"
 #include "goblin.h"
+#include "batman.h"
 
 using namespace std;
 
@@ -61,6 +62,14 @@ void Enemy::attack(Goblin& goblin) {
     int damage = std::ceil((((100)  * (this->getAttack())) /  (100 + goblin.getDefense()+ goblin.defenseBuff())));
     if(randomAttack == 0){
         goblin.addHealth(-1 * damage);
+    }
+}
+
+void Enemy::attack(Batman& batman) {
+    int randomAttack = rand() % 2;
+    int damage = std::ceil((((100)  * (this->getAttack())) /  (100 + batman.getDefense()+ batman.defenseBuff())));
+    if(randomAttack == 0){
+        batman.addHealth(-1 * damage);
     }
 }
 

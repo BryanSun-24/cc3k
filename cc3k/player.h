@@ -13,6 +13,7 @@ class Elf;
 class Merchant;
 class Halfling;
 class Dragon;
+class Superman;
 
 class Enemy;
 
@@ -28,7 +29,6 @@ class Player: public Character {
     virtual int defenseBuff(); 
     void resetBuff();
     virtual void everyTurn() {};
-    //void attack(std::shared_ptr<Enemy> enemy);
     virtual void attack(Human& human);
     virtual void attack(Dwarf& dwarf);
     virtual void attack(Elf& elf);
@@ -36,6 +36,7 @@ class Player: public Character {
     virtual void attack(Merchant& merchant);
     virtual void attack(Halfling& halfling);
     virtual void attack(Dragon& dragon);
+    virtual void attack(Superman& superman);
     virtual void beAttacked(std::shared_ptr<Enemy>& enemy) = 0;
     std::shared_ptr<Buff> getBuff();
     int getMax();

@@ -13,7 +13,6 @@
 
 class Floor {
     std::shared_ptr<Player> player;
-    std::unique_ptr<Floor> floor;
     std::unique_ptr<Textdisplay> textdisplay;
     int floorNum;
     std::vector<std::shared_ptr<Enemy> > enemies;
@@ -42,6 +41,9 @@ class Floor {
     void attackPlayerOrMoveEnemies();
     void attackEnemy(int row, int col);
     std::vector<int> getPos(int x, int y, std::string direction, int direc);
+
+    bool isTradable(int row, int col);
+    void addPotion(std::string pot);
 };
 
 #endif

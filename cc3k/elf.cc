@@ -6,6 +6,7 @@
 #include "vampire.h"
 #include "troll.h"
 #include "goblin.h"
+#include "batman.h"
 
 Elf::Elf(int x, int y, int gold):Enemy{x,y,140,30,10,gold,"Elf",true,true,true}{}
 
@@ -53,4 +54,15 @@ void Elf::attack(Goblin& goblin) {
         }
     }
 }
+
+void Elf::attack(Batman& batman) {
+    for(int i = 0; i < 2; ++i){
+        int randomAttack = rand() % 2;
+        int damage = std::ceil((((100)  * (this->getAttack())) /  (100 + batman.getDefense()+ batman.defenseBuff())));
+        if(randomAttack == 0){
+            batman.addHealth(-1 * damage);
+        }
+    }
+}
+
 

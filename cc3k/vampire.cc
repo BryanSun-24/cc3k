@@ -6,6 +6,7 @@
 #include "merchant.h"
 #include "halfling.h"
 #include "dragon.h"
+#include "superman.h"
 
 
 Vampire::Vampire(int x, int y, std::shared_ptr<Buff> buff):Player{x,y,50,25,25,0,"Vampire",999999999,buff} {}
@@ -66,5 +67,15 @@ void Vampire::attack(Dragon& dragon){
     dragon.addHealth(-1 * damage);
     this->addHealth(5);
 }
+
+
+void Vampire::attack(Superman& superman){
+    //std::cout << "called attack dragon" << std::endl;
+    int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + superman.getDefense())));
+    superman.addHealth(-1 * damage);
+    this->addHealth(5);
+}
+
+
 
 

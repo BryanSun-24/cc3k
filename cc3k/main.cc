@@ -11,6 +11,7 @@
 #include "drow.h"
 #include "troll.h"
 #include "goblin.h"
+#include "batman.h"
 
 #include "floor.h"
  
@@ -22,6 +23,9 @@
 #include "dieException.h"
 #include "quitException.h"
 #include "restartException.h"
+#include "storeException.h"
+#include "buyException.h"
+#include "goldException.h"
 
 int main(int argc, char * argv[]){
     srand((unsigned int)time(NULL));    
@@ -42,6 +46,7 @@ int main(int argc, char * argv[]){
             std::cout << "\033[1m\033[31m" << "t" << REST << " for Troll, " << "regains 5 HP every turn; HP is capped at 120 HP" << std::endl;
             std::cout << "\033[1m\033[31m" << "d" << REST << " for Drow, " << "all potions have their effect magnified by 1.5" << std::endl;
             std::cout << "\033[1m\033[31m" << "g" << REST << " for Goblin, " << "steals 5 gold from every slain enemy" << std::endl;
+            std::cout << "\033[1m\033[31m" << "b" << REST << " for Batman, " << "rich, have 50 gold when spawned" << std::endl;
             std::cin >> command;
             std::shared_ptr<Player> player;
             auto buff = std::make_shared<Buff>();
@@ -60,6 +65,9 @@ int main(int argc, char * argv[]){
                     break;
                 case 'g':
                     player = std::make_shared<Goblin>(-1,-1, buff);
+                    break;
+                case 'b':
+                    player = std::make_shared<Batman>(-1,-1, buff);
                     break;
                 default:
                     player = std::make_shared<Shade>(-1,-1, buff);
@@ -118,7 +126,66 @@ int main(int argc, char * argv[]){
                         throw QuitException();
                     } else if(direction == "r"){
                         throw RestartException();
-                    } else {
+
+
+                    } else if(direction == "b"){
+                        std::cin >> direction;
+                        try{
+                            std::vector<int> Pos = floors[i]->getPos(player->getRow(),player->getCol(), direction, -1);
+                            char check = floors[i]->getSymbol(direction);
+                            if(check == 'M'){
+                                if (floors[i]->isTradable(Pos[0],Pos[1])){
+                                    std::ifstream store{"potion.txt"};
+                                    std::cout << store.rdbuf() << std::endl;
+                                    std::cin >> direction;
+                                    if(player->getGold() < 5) { floors[i]->print(); throw GoldException(); }
+                                    if (direction == "1"){
+                                        player->addGold(-5);
+                                        floors[i]->addPotion("RH");
+                                        floors[i]->print();
+                                        continue;
+                                    } else if (direction == "2"){
+                                        player->addGold(-5);
+                                        floors[i]->addPotion("BA");
+                                        floors[i]->print();
+                                        continue;
+                                    } else if (direction == "3"){
+                                        player->addGold(-5);
+                                        floors[i]->addPotion("BD");
+                                        floors[i]->print();
+                                        continue;
+                                    } else if (direction == "4"){
+                                        player->addGold(-5);
+                                        floors[i]->addPotion("PH");
+                                        floors[i]->print();
+                                        continue;
+                                    } else if (direction == "5"){
+                                        player->addGold(-5);
+                                        floors[i]->addPotion("WA");
+                                        floors[i]->print();
+                                        continue;
+                                    } else if (direction == "6"){
+                                        player->addGold(-5);
+                                        floors[i]->addPotion("WD");
+                                        floors[i]->print();
+                                        continue;
+                                    } else {
+                                        throw MoveException();
+                                        continue;
+                                    }
+                                } else {
+                                    throw StoreException();
+                                }
+                            } else {
+                                throw BuyException();
+                            }
+                        }
+                        catch (Exception &e){
+                            std::cout << "\033[1m\033[31m" << e.message() << REST << std::endl;
+                            continue;
+                        }
+                    } 
+                    else {
                         try{
                             checkType = floors[i]->getSymbol(direction);
                         }

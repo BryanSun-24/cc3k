@@ -9,6 +9,7 @@
 #include "merchant.h"
 #include "halfling.h"
 #include "dragon.h"
+#include "superman.h"
 
 
 using namespace std;
@@ -89,6 +90,12 @@ void Player::attack(Dragon& dragon){
     //std::cout << "called attack dragon" << std::endl;
     int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + dragon.getDefense())));
     dragon.addHealth(-1 * damage);
+}
+
+void Player::attack(Superman& superman){
+    //std::cout << "called attack dragon" << std::endl;
+    int damage = std::ceil((((100)  * (this->getAttack() + this->attackBuff())) /  (100 + superman.getDefense())));
+    superman.addHealth(-1 * damage);
 }
 
 

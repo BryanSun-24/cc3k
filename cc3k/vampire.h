@@ -13,6 +13,7 @@ class Vampire: public Player {
     virtual void attack(Merchant& merchant) override;
     virtual void attack(Halfling& halfling) override;
     virtual void attack(Dragon& dragon) override;
+    virtual void attack(Superman& superman) override;
 };
 
 #endif

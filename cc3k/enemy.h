@@ -12,6 +12,7 @@ class Drow;
 class Vampire;
 class Troll;
 class Goblin;
+class Batman;
 
 class Enemy: public Character {
     bool moveAble;
@@ -29,6 +30,7 @@ class Enemy: public Character {
     virtual void attack(Vampire& vampire);
     virtual void attack(Troll& troll);
     virtual void attack(Goblin& goblin);
+    virtual void attack(Batman& batman);
     virtual void beAttacked(std::shared_ptr<Player>& player) = 0;
     virtual void setGoldPickable() {};
     virtual void setHostile();

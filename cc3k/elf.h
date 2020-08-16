@@ -10,6 +10,7 @@ class Elf: public Enemy {
     void attack(Vampire& vampire) override;
     void attack(Troll& troll) override;
     void attack(Goblin& goblin) override;
+    void attack(Batman& batman) override;
     virtual void beAttacked(std::shared_ptr<Player>& player) override;
 };
 
